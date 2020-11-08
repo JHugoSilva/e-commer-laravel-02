@@ -1,0 +1,14 @@
+php artisan make:seeder UserSeeder
+
+php artisan db:seed --class UserSeeder
+
+php artisan make:controller UserController
+
+php artisan make:middleware UserAuth
+####ADICIONAR AO ARQUIVO UserSeeder####
+ if($request->path()=="login" && $request->session()->has('user')){
+        return redirect('/');
+    }
+###ADICIONAR O KERNEL###
+\Illuminate\Session\Middleware\StartSession::class,
+\App\Http\Middleware\UserAuth::class,
